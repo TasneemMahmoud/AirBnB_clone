@@ -3,6 +3,7 @@
 Module: base_model.py
 This is the "base model" module.
 """
+import models
 import uuid
 from datetime import datetime
 
@@ -42,6 +43,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
+            models.storage.new(self)
             
 
 
@@ -51,6 +53,7 @@ class BaseModel:
         with new current one
         """
         self.updated_at = datetime.utcnow()
+        models.storage.save()
 
     def to_dict(self):
         """
@@ -68,18 +71,3 @@ class BaseModel:
         Print a string of the obj
         """
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
-
-    
-# To be deleted - not prisite
-
-my_model = BaseModel()
-my_model.name = "My First Model"
-my_model.my_number = 89
-print(my_model)
-my_model.save()
-print(my_model)
-my_model_json = my_model.to_dict()
-print(my_model_json)
-print("JSON of my_model:")
-for key in my_model_json.keys():
-    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
