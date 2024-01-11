@@ -26,38 +26,48 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
-    def default(self, params):
-        """_summary_
+    def default(self, args):
+        """molas
 
-        params:
-            args: _description_
+        Args:
+            line (str): _description_
 
         Returns:
-            type: _description_
+            _type_: _description_
         """
-        all_params = params.split('.')
-        name_of_class = all_params[0]
+        commands = args.split('.')
+        n_of_c = commands[0]
 
-        method = all_params[1].split('(')
+        method = commands[1].split('(')
         method_name = method[0]
 
-        methods_dict = {
+        mota = method[1].split(')')[0]
+        masf_motas= mota.split(',')
+
+        method_dict = {
             'all': self.do_all,
             'show': self.do_show,
             'destroy': self.do_destroy,
             'update': self.do_update,
             'create': self.do_create,
-            # 'count': self.do_count,
+            'count': self.do_count,
         }
 
 
-        if method_name in methods_dict.keys():
-            return methods_dict[method_name](f"{name_of_class} {''}")
+        if method_name in method_dict.keys():
+            if method_name == "update":
+                mota_id = masf_motas[0]
+                update_key = masf_motas[1]
+                update_value = masf_motas[2]
+                return method_dict[method_name]("{} {} {} {}".format(n_of_c,
+                                                                 mota_id,
+                                                                 update_key,
+                                                                 update_value))
+            else:
+                return method_dict[method_name](f"{n_of_c} {mota}")
 
-
-        print(f"*** Unknown syntax: {params}")
+        print(f"*** Unknown syntax: {args}")
         return False
-
 
     def do_EOF(self, arg):
         """
@@ -193,6 +203,26 @@ class HBNBCommand(cmd.Cmd):
                     pass
                 setattr(updated_obj, attr_key, attr_value)
                 updated_obj.save()
+
+    def do_count(self, params):
+        """molas
+
+        params:
+            arg (_type_): _description_
+        """
+        command_params = shlex.split(params)
+        if len(command_params) == 0:
+            print("** class name missing **")
+        elif command_params[0] not in self.existing_class:
+            print("** class doesn't exist **")
+        else:
+            all_instances = storage.all()
+            num_count = 0
+            for key, value in all_instances.items():
+                if key.split('.')[0] == command_params[0]:
+                    num_count += 1
+            print(num_count)
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
