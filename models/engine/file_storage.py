@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 import os
 import json
+import models
+from models.base_model import BaseModel
+from models.user import User
 """File storage handler
 
 Returns:
@@ -57,7 +60,7 @@ class FileStorage:
         if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, 'r') as file:
                 try:
-                    file_dict = json.loads(file)
+                    file_dict = json.loads(file.read())
                     for key, value in file_dict.items():
                         model_name, obj_id = key.split('.')
                         temp = eval(model_name)
