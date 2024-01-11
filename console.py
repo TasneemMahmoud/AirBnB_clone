@@ -7,18 +7,57 @@ import models
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     """
     """
     prompt = "(hbnb)"
-    existing_class = ["BaseModel", "User"]
+    existing_class = ["BaseModel", "Place", "Review", "User",
+                       "City", "State", "Amenity"]
 
     def emptyline(self):
         """
         Just pass, Do nothing
         """
         pass
+
+    def default(self, params):
+        """_summary_
+
+        params:
+            args: _description_
+
+        Returns:
+            type: _description_
+        """
+        all_params = params.split('.')
+        name_of_class = all_params[0]
+
+        method = all_params[1].split('(')
+        method_name = method[0]
+
+        methods_dict = {
+            'all': self.do_all,
+            'show': self.do_show,
+            'destroy': self.do_destroy,
+            'update': self.do_update,
+            'create': self.do_create,
+            # 'count': self.do_count,
+        }
+
+
+        if method_name in methods_dict.keys():
+            return methods_dict[method_name](f"{name_of_class} {''}")
+
+
+        print(f"*** Unknown syntax: {params}")
+        return False
+
 
     def do_EOF(self, arg):
         """
@@ -49,7 +88,11 @@ class HBNBCommand(cmd.Cmd):
         elif command_args[0] not in self.existing_class:
             print("** class doesn't exist **")
         else:
-            new_created_obj = eval(f"{command_args[0]}()")
+            try:
+                new_created_obj = eval(f"{command_args[0]}()")
+            except Exception:
+                pass
+            
             storage.save()
             print(new_created_obj.id)
 
