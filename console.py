@@ -15,6 +15,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 def aflos(khr):
     """_summary_
 
@@ -35,7 +36,7 @@ def aflos(khr):
             print(f"*** Unknown syntax: {ks_hgt}")
             return
         return id, ks_hgt
-    else: 
+    else:
         am_gq = khr.split(",")
         try:
             khr_id = am_gq[0]
@@ -45,12 +46,13 @@ def aflos(khr):
         except Exception:
             print(f"*** Unknown syntax: {ks_hgt}")
 
+
 class HBNBCommand(cmd.Cmd):
     """
     """
     prompt = "(hbnb)"
     mawgood = ["BaseModel", "User", "State",
-                       "City", "Amenity", "Place", "Review"]
+               "City", "Amenity", "Place", "Review"]
 
     def emptyline(self):
         """
@@ -92,8 +94,6 @@ class HBNBCommand(cmd.Cmd):
         khr = cmd_fun[1].split(')')[0]
         # splitted_khrs= khr.split(',')
 
-
-
         cmd_fun_dict = {
             'all': self.do_all,
             'show': self.do_show,
@@ -102,7 +102,6 @@ class HBNBCommand(cmd.Cmd):
             'create': self.do_create,
             'count': self.do_count,
         }
-
 
         if cmd_fun_name in cmd_fun_dict.keys():
             if cmd_fun_name == "update":
@@ -113,21 +112,23 @@ class HBNBCommand(cmd.Cmd):
                 try:
                     if isinstance(ks_hgt, str):
                         attrs = ks_hgt
-                        return cmd_fun_dict[cmd_fun_name]("{} {} {}".format(class_name,
-                                                                 khr_id,
-                                                                 attrs))
+                        return cmd_fun_dict[cmd_fun_name]("{} {} {}"
+                        .format(class_name,
+                               khr_id,
+                               attrs))
                     elif isinstance(ks_hgt, dict):
                         dict_attr = ks_hgt
-                        return cmd_fun_dict[cmd_fun_name]("{} {} {}".format(class_name, khr_id, dict_attr))
+                        return cmd_fun_dict[cmd_fun_name]("{} {} {}"
+                        .format(class_name, khr_id, dict_attr))
                 except Exception:
                     print(f"*** Unknown syntax: {ks_hgt}")
             else:
-                return cmd_fun_dict[cmd_fun_name]("{} {}".format(class_name, khr))
+                return cmd_fun_dict[cmd_fun_name]("{} {}"
+                .format(class_name, khr))
 
         print(f"*** Unknown syntax: {args}")
         return False
 
-    
     def do_create(self, args):
         """_summary_
 
@@ -135,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
             arg (_type_): _description_
         """
         awmr = shlex.split(args)
-        
+
         if len(awmr) == 0:
             print("** class name missing **")
         elif awmr[0] not in self.mawgood:
@@ -168,7 +169,6 @@ class HBNBCommand(cmd.Cmd):
                 if key.split('.')[0] == awmr[0]:
                     print(str(value))
 
-
     def do_show(self, args):
         """_summary_
 
@@ -176,7 +176,7 @@ class HBNBCommand(cmd.Cmd):
             arg (_type_): _description_
         """
         awmr = shlex.split(args)
-        
+
         if len(awmr) == 0:
             print("** class name missing **")
         elif awmr[0] not in self.mawgood:
@@ -199,7 +199,7 @@ class HBNBCommand(cmd.Cmd):
             arg (_type_): _description_
         """
         awmr = shlex.split(args)
-        
+
         if len(awmr) == 0:
             print("** class name missing **")
         elif awmr[0] not in self.mawgood:
@@ -218,7 +218,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, args):
         """
-        """        
+        """
         awmr = shlex.split(args)
         if len(awmr) == 0:
             print("** class name missing **")
@@ -246,7 +246,7 @@ class HBNBCommand(cmd.Cmd):
                         ks_hgt = ast.literal_eval("{" + kms_hrf + "}")
                     except Exception:
                         print(f"*** Unknown syntax: {ks_hgt}")
-                    
+
                     dict_keys = list(ks_hgt.keys())
                     dict_values = list(ks_hgt.values())
 
@@ -267,7 +267,7 @@ class HBNBCommand(cmd.Cmd):
                     except Exception:
                         pass
                     setattr(updated_obj, attr_key, attr_value)
-                
+
                 updated_obj.save()
 
     def do_count(self, args):
@@ -288,6 +288,7 @@ class HBNBCommand(cmd.Cmd):
                 if key.split('.')[0] == awmr[0]:
                     count += 1
             print(count)
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
