@@ -7,6 +7,7 @@ import models
 import uuid
 from datetime import datetime
 
+
 class BaseModel:
     """BaseModel is the parent for other classes
 
@@ -44,8 +45,6 @@ class BaseModel:
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
             models.storage.new(self)
-            
-
 
     def save(self):
         """
@@ -60,12 +59,13 @@ class BaseModel:
         Method returns a dict with keys 
         and values of the dictionary
         """
+
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
-    
+
     def __str__(self):
         """
         Print a string of the obj
