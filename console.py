@@ -112,11 +112,10 @@ class HBNBCommand(cmd.Cmd):
                 try:
                     if isinstance(ks_hgt, str):
                         attrs = ks_hgt
-                        return cfd[cfdn]("{} {} {}".format(cdfn,r_id,attrs))
+                        return cfd[cfdn]("{} {} {}".format(cdfn, r_id, attrs))
                     elif isinstance(ks_hgt, dict):
-                        dict_attr = ks_hgt
-                        return cfd[cfdn]("{} {} {}"
-                        .format(cdfn, r_id, dict_attr))
+                        dar = ks_hgt
+                        return cfd[cfdn]("{} {} {}".format(cdfn, r_id, dar))
                 except Exception:
                     print(f"*** Unknown syntax: {ks_hgt}")
             else:
