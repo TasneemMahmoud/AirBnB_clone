@@ -39,10 +39,10 @@ def aflos(khr):
     else:
         am_gq = khr.split(",")
         try:
-            khr_id = am_gq[0]
+            r_id = am_gq[0]
             khr_key = am_gq[1]
             khr_value = am_gq[2]
-            return f"{khr_id}", f"{khr_key} {khr_value}"
+            return f"{r_id}", f"{khr_key} {khr_value}"
         except Exception:
             print(f"*** Unknown syntax: {ks_hgt}")
 
@@ -86,15 +86,15 @@ class HBNBCommand(cmd.Cmd):
             _type_: _description_
         """
         arguments = args.split('.')
-        class_name = arguments[0]
+        cdfn = arguments[0]
 
         cmd_fun = arguments[1].split('(')
-        cmd_fun_name = cmd_fun[0]
+        cfdn = cmd_fun[0]
 
         khr = cmd_fun[1].split(')')[0]
         # splitted_khrs= khr.split(',')
 
-        cmd_fun_dict = {
+        cfd = {
             'all': self.do_all,
             'show': self.do_show,
             'destroy': self.do_destroy,
@@ -103,28 +103,24 @@ class HBNBCommand(cmd.Cmd):
             'count': self.do_count,
         }
 
-        if cmd_fun_name in cmd_fun_dict.keys():
-            if cmd_fun_name == "update":
-                # khr_id = splitted_khrs[0]
+        if cfdn in cfd.keys():
+            if cfdn == "update":
+                # r_id = splitted_khrs[0]
                 # update_key = splitted_khrs[1]
                 # update_value = splitted_khrs[2]
-                khr_id, ks_hgt = aflos(khr)
+                r_id, ks_hgt = aflos(khr)
                 try:
                     if isinstance(ks_hgt, str):
                         attrs = ks_hgt
-                        return cmd_fun_dict[cmd_fun_name]("{} {} {}"
-                        .format(class_name,
-                               khr_id,
-                               attrs))
+                        return cfd[cfdn]("{} {} {}".format(cdfn,r_id,attrs))
                     elif isinstance(ks_hgt, dict):
                         dict_attr = ks_hgt
-                        return cmd_fun_dict[cmd_fun_name]("{} {} {}"
-                        .format(class_name, khr_id, dict_attr))
+                        return cfd[cfdn]("{} {} {}"
+                        .format(cdfn, r_id, dict_attr))
                 except Exception:
                     print(f"*** Unknown syntax: {ks_hgt}")
             else:
-                return cmd_fun_dict[cmd_fun_name]("{} {}"
-                .format(class_name, khr))
+                return cfd[cfdn]("{} {}".format(cdfn, khr))
 
         print(f"*** Unknown syntax: {args}")
         return False
