@@ -56,7 +56,7 @@ class BaseModel:
 
     def to_dict(self):
         """
-        Method returns a dict with keys 
+        Method returns a dict with keys
         and values of the dictionary
         """
 
@@ -70,4 +70,4 @@ class BaseModel:
         """
         Print a string of the obj
         """
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
