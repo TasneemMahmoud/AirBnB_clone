@@ -9,12 +9,12 @@ from models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
     """
-    Testing the base model
+    Class to test base class
     """
 
     def test_initialization(self):
         """
-        Testing initialization of BaseModel
+        Test if a BaseModel instance is initialized correctly
         """
         my_model = BaseModel()
         self.assertIsNotNone(my_model.id)
@@ -23,7 +23,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_save(self):
         """
-        Test the save() if update time correctly
+        Test the save method if it updates the updated_at correctly
         """
         my_model = BaseModel()
         my_model.save()
@@ -31,23 +31,23 @@ class TestBaseModel(unittest.TestCase):
 
     def test_to_dict(self):
         """
-        Test the to_dict method if only returns just dictionary
+        Test the to_dict method if it returns a dictionary correctly
         """
         my_model = BaseModel()
         my_model_dict = my_model.to_dict()
-        shq = my_model.created_at.isoformat()
-        shq2 = my_model.updated_at.isoformat()
 
         self.assertIsInstance(my_model_dict, dict)
+        created_at_iso = my_model.created_at.isoformat()
+        updated_at_iso = my_model.updated_at.isoformat()
 
         self.assertEqual(my_model_dict["__class__"], "BaseModel")
         self.assertEqual(my_model_dict["id"], my_model.id)
-        self.assertEqual(my_model_dict["created_at"], shq)
-        self.assertEqual(my_model_dict["updated_at"], shq2)
+        self.assertEqual(my_model_dict["created_at"], created_at_iso)
+        self.assertEqual(my_model_dict["updated_at"], updated_at_iso)
 
     def test_str(self):
         """
-        Test the __str__ if it returns just a string
+        Test the __str__ method if it returns a string correctly
         """
         my_model = BaseModel()
 
@@ -57,12 +57,13 @@ class TestBaseModel(unittest.TestCase):
 
     def test_kwargs(self):
         """
-        Test the constractor with kwargs
+        Test the initialization with kwargs
         """
-        time = "2019-07-01T00:00:00.000000"
-        my_model = BaseModel(created_at=time, updated_at=time)
-        self.assertEqual(my_model.created_at, datetime.fromisoformat(time))
-        self.assertEqual(my_model.updated_at, datetime.fromisoformat(time))
+        format_date = "2019-07-01T00:00:00.000000"
+        iso_format = datetime.fromisoformat(format_date)
+        my_model = BaseModel(created_at=format_date, updated_at=format_date)
+        self.assertEqual(my_model.created_at, iso_format)
+        self.assertEqual(my_model.updated_at, iso_format)
         self.assertNotEqual(my_model.created_at, datetime.utcnow())
         self.assertNotEqual(my_model.updated_at, datetime.utcnow())
 

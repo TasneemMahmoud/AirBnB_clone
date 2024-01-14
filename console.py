@@ -5,6 +5,7 @@ import cmd
 import shlex
 import re
 import ast
+import sys
 import models
 from models import storage
 from models.base_model import BaseModel
@@ -16,85 +17,225 @@ from models.place import Place
 from models.review import Review
 
 
-def aflos(khr):
-    """_summary_
-
-    Args:
-    khr : dictionary
-
-    Returns:
-        _type_: _description_
+def asm_kmos(param):
+    """Splitting
     """
-    kws_kmos = re.search(r"\{(.*?)\}", khr)
-    if kws_kmos:
-        mflaa = shlex.split(khr[:kws_kmos.span()[0]])
-        id = [i.strip(",") for i in mflaa][0]
-        kms_hrf = kws_kmos.group(1)
+    kms_ks = re.search(r"\{(.*?)\}", param)
+    if kms_ks:
+        t_ids = shlex.split(param[:kms_ks.span()[0]])
+        id = [i.strip(",") for i in t_ids][0]
+        str_dict = kms_ks.group(1)
         try:
-            ks_hgt = ast.literal_eval("{" + kms_hrf + "}")
+            kns_p = ast.literal_eval("{" + str_dict + "}")
         except Exception:
-            print(f"*** Unknown syntax: {ks_hgt}")
+            print(f"*** Unknown syntax: {kns_p}")
             return
-        return id, ks_hgt
+        return id, kns_p
     else:
-        am_gq = khr.split(",")
+        cmd_args = param.split(",")
         try:
-            r_id = am_gq[0]
-            khr_key = am_gq[1]
-            khr_value = am_gq[2]
-            return f"{r_id}", f"{khr_key} {khr_value}"
+            elid = cmd_args[0]
+            elkey = cmd_args[1]
+            elvalue = cmd_args[2]
+            return f"{elid}", f"{elkey} {elvalue}"
         except Exception:
-            print(f"*** Unknown syntax: {ks_hgt}")
+            print(f"*** Unknown syntax: {kns_p}")
 
 
 class HBNBCommand(cmd.Cmd):
+    """Class that extend from cmd
     """
-    """
-    prompt = "(hbnb)"
-    mawgood = ["BaseModel", "User", "State",
-               "City", "Amenity", "Place", "Review"]
+    prompt = "(hbnb) "
+    cls = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
 
     def emptyline(self):
         """
-        Just pass, Do nothing
+        Enter a new line
         """
-        pass
+        if not sys.stdin.isatty():
+            print()
 
     def do_EOF(self, arg):
+        """EOF to kill the process
         """
-        """
-        print()
+        if not sys.stdin.isatty():
+            print()
         return True
 
     def do_quit(self, arg):
+        """Quit command to exit the program
         """
-        """
+        if not sys.stdin.isatty():
+            print()
+
         return True
 
-    def help_quit(self, arg):
+    def do_help(self, arg):
+        """Help cmd
         """
+        if not sys.stdin.isatty():
+            print()
+        cmd.Cmd.do_help(self, arg)
+
+    def do_create(self, args):
+        """Create command
         """
-        print("Quit to exit")
+        amr_hgt = shlex.split(args)
+
+        if len(amr_hgt) == 0:
+            print("** class name missing **")
+        elif amr_hgt[0] not in self.cls:
+            print("** class doesn't exist **")
+        else:
+            try:
+                created_instance = eval(f"{amr_hgt[0]}()")
+            except Exception:
+                pass
+
+            storage.save()
+            print(created_instance.id)
+
+    def do_show(self, args):
+        """Show single instance 
+        """
+        amr_hgt = shlex.split(args)
+
+        if len(amr_hgt) == 0:
+            print("** class name missing **")
+        elif amr_hgt[0] not in self.cls:
+            print("** class doesn't exist **")
+        elif len(amr_hgt) < 2:
+            print("** instance id missing **")
+        else:
+            kol_hgj = storage.all()
+            key = "{}.{}".format(amr_hgt[0], amr_hgt[1])
+
+            if key in kol_hgj:
+                print(kol_hgj[key])
+            else:
+                print("** no instance found **")
+
+    def do_destroy(self, args):
+        """Destroy single instance
+        """
+        amr_hgt = shlex.split(args)
+
+        if len(amr_hgt) == 0:
+            print("** class name missing **")
+        elif amr_hgt[0] not in self.cls:
+            print("** class doesn't exist **")
+        elif len(amr_hgt) < 2:
+            print("** instance id missing **")
+        else:
+            kol_hgj = storage.all()
+            key = "{}.{}".format(amr_hgt[0], amr_hgt[1])
+
+            if key in kol_hgj:
+                del kol_hgj[key]
+                storage.save()
+            else:
+                print("** no instance found **")
+
+    def do_all(self, args):
+        """Get all objects
+        """
+        kol_hgj = storage.all()
+        amr_hgt = shlex.split(args)
+
+        if len(amr_hgt) == 0:
+            for key, value in kol_hgj.items():
+                print(str(value))
+        elif amr_hgt[0] not in self.cls:
+            print("** class doesn't exist **")
+        else:
+            for key, value in kol_hgj.items():
+                if key.split('.')[0] == amr_hgt[0]:
+                    print(str(value))
+
+    def do_update(self, args):
+        """Update the class object
+        """
+        amr_hgt = shlex.split(args)
+        if len(amr_hgt) == 0:
+            print("** class name missing **")
+        elif amr_hgt[0] not in self.cls:
+            print("** class doesn't exist **")
+        elif len(amr_hgt) < 2:
+            print("** instance id missing **")
+        else:
+            kol_hgj = storage.all()
+            key = "{}.{}".format(amr_hgt[0], amr_hgt[1])
+
+            if key not in kol_hgj:
+                print("** no instance found **")
+            elif len(amr_hgt) < 3:
+                print("** attribute name missing **")
+            elif len(amr_hgt) < 4:
+                print("** value missing **")
+            else:
+                hdis_at = kol_hgj[key]
+
+                bass_dict = re.search(r"\{(.*?)\}", args)
+                if bass_dict:
+                    str_dict = bass_dict.group(1)
+                    try:
+                        kns_p = ast.literal_eval("{" + str_dict + "}")
+                    except Exception:
+                        print(f"*** Unknown syntax: {kns_p}")
+
+                    dict_keys = list(kns_p.keys())
+                    dict_values = list(kns_p.values())
+
+                    elksw = dict_keys[0]
+                    alval = dict_keys[1]
+                    kmsama = dict_values[0]
+                    jmatna = dict_values[1]
+
+                    setattr(hdis_at, elksw, kmsama)
+                    setattr(hdis_at, alval, jmatna)
+
+                else:
+                    prrmss = amr_hgt[2]
+                    prsvaw = amr_hgt[3]
+
+                    try:
+                        prsvaw = eval(prsvaw)
+                    except Exception:
+                        pass
+                    setattr(hdis_at, prrmss, prsvaw)
+
+                hdis_at.save()
+
+    def do_count(self, args):
+        """count objects in the class
+        """
+        amr_hgt = shlex.split(args)
+        if len(amr_hgt) == 0:
+            print("** class name missing **")
+        elif amr_hgt[0] not in self.cls:
+            print("** class doesn't exist **")
+        else:
+            kol_hgj = storage.all()
+            count = 0
+            for key, value in kol_hgj.items():
+                if key.split('.')[0] == amr_hgt[0]:
+                    count += 1
+            print(count)
 
     def default(self, args):
-        """_summary_
-
-        Args:
-            line (str): _description_
-
-        Returns:
-            _type_: _description_
+        """Edit the default behavior
         """
-        arguments = args.split('.')
-        cdfn = arguments[0]
+        hasg = args.split('.')
+        asmkls = hasg[0]
+        asdlsq = asmkls
 
-        cmd_fun = arguments[1].split('(')
-        cfdn = cmd_fun[0]
+        # orty = cmd_fun  just for pycodestyle
+        orty = hasg[1].split('(')
+        orty_name = orty[0]
 
-        khr = cmd_fun[1].split(')')[0]
-        # splitted_khrs= khr.split(',')
+        param = orty[1].split(')')[0]
 
-        cfd = {
+        orty_dict = {
             'all': self.do_all,
             'show': self.do_show,
             'destroy': self.do_destroy,
@@ -103,186 +244,23 @@ class HBNBCommand(cmd.Cmd):
             'count': self.do_count,
         }
 
-        if cfdn in cfd.keys():
-            if cfdn == "update":
-                # r_id = splitted_khrs[0]
-                # update_key = splitted_khrs[1]
-                # update_value = splitted_khrs[2]
-                r_id, ks_hgt = aflos(khr)
+        if orty_name in orty_dict.keys():
+            if orty_name == "update":
+                elid, kns_p = asm_kmos(param)
                 try:
-                    if isinstance(ks_hgt, str):
-                        attrs = ks_hgt
-                        return cfd[cfdn]("{} {} {}".format(cdfn, r_id, attrs))
-                    elif isinstance(ks_hgt, dict):
-                        dar = ks_hgt
-                        return cfd[cfdn]("{} {} {}".format(cdfn, r_id, dar))
+                    if isinstance(kns_p, str):
+                        attrs = kns_p
+                        return orty_dict[orty_name](f"{asdlsq} {elid} {attrs}")
+                    elif isinstance(kns_p, dict):
+                        da = kns_p
+                        return orty_dict[orty_name](f"{asdlsq} {elid} {da}")
                 except Exception:
-                    print(f"*** Unknown syntax: {ks_hgt}")
+                    print(f"*** Unknown syntax: {kns_p}")
             else:
-                return cfd[cfdn]("{} {}".format(cdfn, khr))
+                return orty_dict[orty_name]("{} {}".format(asdlsq, param))
 
         print(f"*** Unknown syntax: {args}")
         return False
-
-    def do_create(self, args):
-        """_summary_
-
-        Args:
-            arg (_type_): _description_
-        """
-        awmr = shlex.split(args)
-
-        if len(awmr) == 0:
-            print("** class name missing **")
-        elif awmr[0] not in self.mawgood:
-            print("** class doesn't exist **")
-        else:
-            try:
-                monsheea = eval(f"{awmr[0]}()")
-            except Exception:
-                pass
-
-            storage.save()
-            print(monsheea.id)
-
-    def do_all(self, args):
-        """_summary_
-
-        Args:
-            arg (_type_): _description_
-        """
-        kol_hgrq = storage.all()
-        awmr = shlex.split(args)
-
-        if len(awmr) == 0:
-            for key, value in kol_hgrq.items():
-                print(str(value))
-        elif awmr[0] not in self.mawgood:
-            print("** class doesn't exist **")
-        else:
-            for key, value in kol_hgrq.items():
-                if key.split('.')[0] == awmr[0]:
-                    print(str(value))
-
-    def do_show(self, args):
-        """_summary_
-
-        Args:
-            arg (_type_): _description_
-        """
-        awmr = shlex.split(args)
-
-        if len(awmr) == 0:
-            print("** class name missing **")
-        elif awmr[0] not in self.mawgood:
-            print("** class doesn't exist **")
-        elif len(awmr) < 2:
-            print("** instance id missing **")
-        else:
-            kol_hgrq = storage.all()
-            key = "{}.{}".format(awmr[0], awmr[1])
-
-            if key in kol_hgrq:
-                print(kol_hgrq[key])
-            else:
-                print("** no instance found **")
-
-    def do_destroy(self, args):
-        """_summary_
-
-        Args:
-            arg (_type_): _description_
-        """
-        awmr = shlex.split(args)
-
-        if len(awmr) == 0:
-            print("** class name missing **")
-        elif awmr[0] not in self.mawgood:
-            print("** class doesn't exist **")
-        elif len(awmr) < 2:
-            print("** instance id missing **")
-        else:
-            kol_hgrq = storage.all()
-            key = "{}.{}".format(awmr[0], awmr[1])
-
-            if key in kol_hgrq:
-                del kol_hgrq[key]
-                storage.save()
-            else:
-                print("** no instance found **")
-
-    def do_update(self, args):
-        """
-        """
-        awmr = shlex.split(args)
-        if len(awmr) == 0:
-            print("** class name missing **")
-        elif awmr[0] not in self.mawgood:
-            print("** class doesn't exist **")
-        elif len(awmr) < 2:
-            print("** instance id missing **")
-        else:
-            kol_hgrq = storage.all()
-            key = "{}.{}".format(awmr[0], awmr[1])
-
-            if key not in kol_hgrq:
-                print("** no instance found **")
-            elif len(awmr) < 3:
-                print("** attribute name missing **")
-            elif len(awmr) < 4:
-                print("** value missing **")
-            else:
-                updated_obj = kol_hgrq[key]
-
-                bass_dict = re.search(r"\{(.*?)\}", args)
-                if bass_dict:
-                    kms_hrf = bass_dict.group(1)
-                    try:
-                        ks_hgt = ast.literal_eval("{" + kms_hrf + "}")
-                    except Exception:
-                        print(f"*** Unknown syntax: {ks_hgt}")
-
-                    dict_keys = list(ks_hgt.keys())
-                    dict_values = list(ks_hgt.values())
-
-                    dict_keys1 = dict_keys[0]
-                    dict_keys2 = dict_keys[1]
-                    dict_values1 = dict_values[0]
-                    dict_values2 = dict_values[1]
-
-                    setattr(updated_obj, dict_keys1, dict_values1)
-                    setattr(updated_obj, dict_keys2, dict_values2)
-
-                else:
-                    attr_key = awmr[2]
-                    attr_value = awmr[3]
-
-                    try:
-                        attr_value = eval(attr_value)
-                    except Exception:
-                        pass
-                    setattr(updated_obj, attr_key, attr_value)
-
-                updated_obj.save()
-
-    def do_count(self, args):
-        """_summary_
-
-        Args:
-            arg (_type_): _description_
-        """
-        awmr = shlex.split(args)
-        if len(awmr) == 0:
-            print("** class name missing **")
-        elif awmr[0] not in self.mawgood:
-            print("** class doesn't exist **")
-        else:
-            kol_hgrq = storage.all()
-            count = 0
-            for key, value in kol_hgrq.items():
-                if key.split('.')[0] == awmr[0]:
-                    count += 1
-            print(count)
 
 
 if __name__ == "__main__":

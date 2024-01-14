@@ -3,71 +3,54 @@
 Module: base_model.py
 This is the "base model" module.
 """
-import models
 import uuid
 from datetime import datetime
+import models
 
 
 class BaseModel:
-    """BaseModel is the parent for other classes
-
-    Attributes:
-      id(str): the unique id of the object(user)
-      created_at: created at time
-      updated_at: update at time
-
-    Methods:
-      __str__: return string
-      save(self): change updated_at atr
-      to_dict(self): returns the keys and values of the dict
+    """BaseModel the main class that has same attrs
 
     """
     def __init__(self, *args, **kwargs):
-        """Object init
-
-        Args:
-          args: won't used
-          kwargs: a existing dictionary
-
+        """Starting the instance
         """
 
-        string_time_formate = "%Y-%m-%dT%H:%M:%S.%f"
+        asm_dtesa = "%Y-%m-%dT%H:%M:%S.%f"
+
+        if not kwargs:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
+            models.storage.new(self)
 
         if kwargs:
             for key, value in kwargs.items():
                 if key == "__class__":
                     continue
                 if key == "created_at" or key == "updated_at":
-                    value = datetime.strptime(value, string_time_formate)
+                    value = datetime.strptime(value, asm_dtesa)
                 setattr(self, key, value)
-        else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.utcnow()
-            self.updated_at = datetime.utcnow()
-            models.storage.new(self)
 
     def save(self):
         """
-        Changing the updated_at prop:
-        with new current one
+        Modify attr on this obj
         """
         self.updated_at = datetime.utcnow()
         models.storage.save()
 
     def to_dict(self):
         """
-        Method returns a dict with keys
-        and values of the dictionary
+        Function return all
         """
-
-        obj_dict = self.__dict__.copy()
-        obj_dict['__class__'] = self.__class__.__name__
-        obj_dict['created_at'] = self.created_at.isoformat()
-        obj_dict['updated_at'] = self.updated_at.isoformat()
-        return obj_dict
+        twel_awes = self.__dict__.copy()
+        twel_awes['__class__'] = self.__class__.__name__
+        twel_awes['created_at'] = self.created_at.isoformat()
+        twel_awes['updated_at'] = self.updated_at.isoformat()
+        return twel_awes
 
     def __str__(self):
         """
-        Print a string of the obj
+        Returns simple line with desc as a string
         """
-        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+        return f"[{type(self).__name__}] ({self.id}) {str(self.__dict__)}"
