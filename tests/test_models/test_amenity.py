@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Test cases for base class
+Test cases for Amenity class
 """
 import unittest
 import uuid
@@ -14,44 +14,43 @@ class TestAmenity(unittest.TestCase):
     """
     def setUp(self):
         """
-        This method is called before
-        each test method in the test class
+        This method starting seting up
         """
-        self.amenity = Amenity()
+        self.theawe = Amenity()
 
-    def test_create_instance_of_amenity(self):
+    def test_creating(self):
         """
-        Test create instance of amenity
+        Test creating new one
         """
-        self.assertIsInstance(self.amenity, BaseModel)
+        self.assertIsInstance(self.theawe, BaseModel)
 
     def test_create(self):
         """
-        Tests create function
+        Tests creating the new obj
         """
-        self.assertIsInstance(self.amenity, Amenity)
+        self.assertIsInstance(self.theawe, Amenity)
 
-    def test_set_name(self):
+    def test_name(self):
         """
         Test set name
         """
-        self.amenity.name = "Mostafa"
-        self.assertEqual(self.amenity.name, "Mostafa")
+        self.theawe.name = "ayhaga"
+        self.assertEqual(self.theawe.name, "ayhaga")
 
-    def test_has_attr(self):
+    def test_is_with(self):
         """
         Tests has attrbuite
         """
-        self.assertTrue(hasattr(self.amenity, "name"))
-        self.assertTrue(hasattr(self.amenity, "id"))
-        self.assertTrue(hasattr(self.amenity, "created_at"))
-        self.assertTrue(hasattr(self.amenity, "updated_at"))
+        self.assertTrue(hasattr(self.theawe, "name"))
+        self.assertTrue(hasattr(self.theawe, "id"))
+        self.assertTrue(hasattr(self.theawe, "created_at"))
+        self.assertTrue(hasattr(self.theawe, "updated_at"))
 
     def test_for_id(self):
         """
-        Tests for id
+        Tests teh uuid checking
         """
-        self.assertIsInstance(uuid.UUID(self.amenity.id), uuid.UUID)
+        self.assertIsInstance(uuid.UUID(self.theawe.id), uuid.UUID)
 
 
 if __name__ == "__main__":

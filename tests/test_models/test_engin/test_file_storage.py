@@ -1,14 +1,6 @@
 #!/usr/bin/python3
 """
-Unit tests for the FileStorage class in the models.engine.file_storage module.
-
-Methods:
-- test_FileStorage_init: Test the initialization of the FileStorage class.
-- test_all: Test the all method of the FileStorage class.
-- test_new: Test the new method of the FileStorage class.
-- test_save: Test the save method of the FileStorage class.
-- test_reload: Test the reload method of the FileStorage class.
-- etc...
+Unit tests for all functions in this class FileStorage.
 """
 import unittest
 import models
@@ -18,72 +10,71 @@ from models.engine.file_storage import FileStorage
 
 class TestFileStorage(unittest.TestCase):
     """
-    Test file storage class
+    Test the for the class 
     """
     def test_FileStorage_init(self):
         """
-        Test file storage for init
+        Test the starting
         """
         self.assertEqual(type(FileStorage()), FileStorage)
 
     def test_all(self):
         """
-        Test all method that returns the dictionary __objects
+        Test all function that get all objs
         """
         self.assertEqual(dict, type(models.storage.all()))
 
-    def test_file_path_type(self):
+    def test_file(self):
         """
-        Test file path for type
+        Test type of the file
         """
         self.assertEqual(str, type(FileStorage()._FileStorage__file_path))
 
-    def test_storage_type(self):
+    def test_noa_elmsaha(self):
         """
-        Test storage file for type
+        Test the type of the storage
         """
         self.assertEqual(type(models.storage), FileStorage)
 
-    def test_new(self):
+    def test_newwing(self):
         """
-        Test in __objects the obj with key
-        <obj class name>.id
+        Test in the new method
         """
-        base = BaseModel()
-        models.storage.new(base)
-        self.assertIn("BaseModel." + base.id, models.storage.all().keys())
-        self.assertIn(base, models.storage.all().values())
+        assas = BaseModel()
+        models.storage.new(assas)
+        self.assertIn("BaseModel." + assas.id, models.storage.all().keys())
+        self.assertIn(assas, models.storage.all().values())
 
-    def test_successfully_adds_new_object(self):
+    def test_adding(self):
         """
-        Test successfully add new obj
+        Test adding
         """
-        obj = BaseModel()
-        models.storage.new(obj)
-        self.assertIn(obj, models.storage.all().values())
+        shya = BaseModel()
+        models.storage.new(shya)
+        self.assertIn(shya, models.storage.all().values())
 
-    def test_can_add_multiple_objects(self):
+    def test_with_many(self):
         """
-        Test for all adds mulltiply obj
+        Test with many
         """
-        obj1 = BaseModel()
-        obj2 = BaseModel()
-        models.storage.new(obj1)
-        models.storage.new(obj2)
-        self.assertIn(obj1, models.storage.all().values())
-        self.assertIn(obj2, models.storage.all().values())
+        shyui1 = BaseModel()
+        shyui2 = BaseModel()
+        models.storage.new(shyui1)
+        models.storage.new(shyui2)
+        self.assertIn(shyui1, models.storage.all().values())
+        self.assertIn(shyui2, models.storage.all().values())
 
-    def test_save(self):
+    def test_saving(self):
         """
-        Test save funtion
+        Test the saveing method
         """
-        base = BaseModel()
-        models.storage.new(base)
+        aswq = BaseModel()
+        models.storage.new(aswq)
         models.storage.save()
         save_text = ""
         with open("file.json", "r") as file:
             save_text = file.read()
-            self.assertIn("BaseModel." + base.id, save_text)
+            self.assertIn("BaseModel." + aswq.id, save_text)
         with self.assertRaises(TypeError):
             models.storage.save(None)
 
@@ -91,12 +82,12 @@ class TestFileStorage(unittest.TestCase):
         """
         Test reload function
         """
-        base = BaseModel()
-        models.storage.new(base)
+        aswq = BaseModel()
+        models.storage.new(aswq)
         models.storage.save()
         models.storage.reload()
         objs = FileStorage()._FileStorage__objects
-        self.assertIn("BaseModel." + base.id, objs)
+        self.assertIn("BaseModel." + aswq.id, objs)
         with self.assertRaises(TypeError):
             models.storage.reload(None)
 

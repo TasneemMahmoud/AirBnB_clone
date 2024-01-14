@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Test console
+TestConsoleClass
 """
 import unittest
 from io import StringIO
@@ -10,64 +10,64 @@ from console import HBNBCommand
 
 class TestConsole(unittest.TestCase):
     """
-    Test console
+    Test cases for console.py
     """
-    def test_destroy(self):
+    def test_destroing(self):
         """
-        Test destroy function
+        checking deleteing method
         """
         command = 'create User'
-        expected_output = '** no instance found **'
+        mfrtl = '** no instance found **'
 
-        with patch('sys.stdout', new=StringIO()) as fake_out:
+        with patch('sys.stdout', new=StringIO()) as m4haia:
             HBNBCommand().onecmd(command)
 
         command = 'destroy User 123'
 
-        with patch('sys.stdout', new=StringIO()) as fake_out:
+        with patch('sys.stdout', new=StringIO()) as m4haia:
             HBNBCommand().onecmd(command)
-            output = fake_out.getvalue().strip()
+            mkrg = m4haia.getvalue().strip()
 
-        self.assertEqual(output, expected_output)
+        self.assertEqual(mkrg, mfrtl)
 
-    def test_show(self):
+    def test_showing(self):
         """
-        Test show function
+        Getting the obj testing
         """
         command = 'show'
-        expected_output = '** class name missing **'
+        mfrtl = '** class name missing **'
 
-        with patch('sys.stdout', new=StringIO()) as fake_out:
+        with patch('sys.stdout', new=StringIO()) as m4haia:
             HBNBCommand().onecmd(command)
-            output = fake_out.getvalue().strip()
+            mkrg = m4haia.getvalue().strip()
 
-        self.assertEqual(output, expected_output)
+        self.assertEqual(mkrg, mfrtl)
 
-    def test_create_with_invalid_class_name(self):
+    def test_create_unexist_cls(self):
         """
         Test create for invalid class name
         """
         command = 'create InvalidClass'
-        expected_output = '** class doesn\'t exist **'
+        mfrtl = '** class doesn\'t exist **'
 
-        with patch('sys.stdout', new=StringIO()) as fake_out:
+        with patch('sys.stdout', new=StringIO()) as m4haia:
             HBNBCommand().onecmd(command)
-            output = fake_out.getvalue().strip()
+            mkrg = m4haia.getvalue().strip()
 
-        self.assertEqual(output, expected_output)
+        self.assertEqual(mkrg, mfrtl)
 
-    def test_create_command_no_class_name(self):
+    def test_without_class(self):
         """
         Test create command with no class name
         """
         command = 'create'
-        expected_output = '** class name missing **'
+        mfrtl = '** class name missing **'
 
-        with patch('sys.stdout', new=StringIO()) as fake_out:
+        with patch('sys.stdout', new=StringIO()) as m4haia:
             HBNBCommand().onecmd(command)
-            output = fake_out.getvalue().strip()
+            mkrg = m4haia.getvalue().strip()
 
-        self.assertEqual(output, expected_output)
+        self.assertEqual(mkrg, mfrtl)
 
 
 if __name__ == "__main__":
