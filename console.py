@@ -96,7 +96,7 @@ class HBNBCommand(cmd.Cmd):
             print(created_instance.id)
 
     def do_show(self, args):
-        """Show single instance 
+        """Show single instance
         """
         amr_hgt = shlex.split(args)
 
