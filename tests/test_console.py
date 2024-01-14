@@ -79,12 +79,10 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd(mwsqon)
             self.assertEqual(motwka, moragats.getvalue().strip())
 
-
     def test_amr_fadi(self):
         """ Test stoor fadyaa """
         with patch("sys.stdout", new=StringIO()) as moragats:
             self.assertEqual("", moragats.getvalue())
-
 
     def test_mshkl(self):
         """ test wrong unique id """
