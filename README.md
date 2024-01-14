@@ -1,3 +1,3 @@
 # AirBnB_clone
 
-This is a AirBnB_clone  Readme file
+This is an AirBnB_clone Repositories Readme file
