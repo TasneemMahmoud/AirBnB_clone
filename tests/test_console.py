@@ -69,6 +69,53 @@ class TestConsole(unittest.TestCase):
 
         self.assertEqual(mkrg, mfrtl)
 
+    def test_hgat(self):
+        """
+        test ayhaga testing
+        """
+        with patch("sys.stdout", new=StringIO()) as moragats:
+            mwsqon = "create"
+            motwka = "** class name missing **"
+            HBNBCommand().onecmd(mwsqon)
+            self.assertEqual(motwka, moragats.getvalue().strip())
+
+
+    def test_amr_fadi(self):
+        """ Test stoor fadyaa """
+        with patch("sys.stdout", new=StringIO()) as moragats:
+            self.assertEqual("", moragats.getvalue())
+
+
+    def test_mshkl(self):
+        """ test wrong unique id """
+        invalid_id = 23421123
+        with patch("sys.stdout", new=StringIO()) as moragats:
+            mwsqon = f'BaseModel.show("{invalid_id}")'
+            HBNBCommand().onecmd(mwsqon)
+            res = "** no instance found **"
+            self.assertEqual(moragats.getvalue().strip(), res)
+
+        """ test passing no class """
+        with patch("sys.stdout", new=StringIO()) as moragats:
+            mwsqon = 'show'
+            HBNBCommand().onecmd(mwsqon)
+            res = "** class name missing **"
+            self.assertEqual(moragats.getvalue().strip(), res)
+
+        """ test with unknowen classs"""
+        with patch("sys.stdout", new=StringIO()) as moragats:
+            mwsqon = 'places.show("232342")'
+            HBNBCommand().onecmd(mwsqon)
+            res = "** class doesn't exist **"
+            self.assertEqual(moragats.getvalue().strip(), res)
+
+        """ test without an id """
+        with patch("sys.stdout", new=StringIO()) as moragats:
+            mwsqon = 'Place.show()'
+            HBNBCommand().onecmd(mwsqon)
+            res = "** instance id missing **"
+            self.assertEqual(moragats.getvalue().strip(), res)
+
 
 if __name__ == "__main__":
     unittest.main()
