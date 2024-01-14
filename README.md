@@ -1,3 +1,3 @@
 # AirBnB_clone
 
-This is a Read
+This is a Readme
