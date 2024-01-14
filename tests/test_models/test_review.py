@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Test cases for base class
+Test anything for review
 """
 import unittest
 import uuid
@@ -10,50 +10,49 @@ from models.review import Review
 
 class TestReview(unittest.TestCase):
     """
-    Class to test Review class
+    Class to checking for issue in review
     """
     def setUp(self):
         """
-        This method is called before
-        each test method in the test class
+        This start in the first
         """
-        self.review = Review()
+        self.adewq = Review()
 
-    def test_create_instance_of_review(self):
+    def test_creating_one(self):
         """
-        Test to create instance of review
+        Test to creating
         """
-        self.assertIsInstance(self.review, BaseModel)
+        self.assertIsInstance(self.adewq, BaseModel)
 
-    def test_create(self):
+    def test_create_again(self):
         """
-        Test for create
+        Test for creating too
         """
-        self.assertIsInstance(self.review, Review)
+        self.assertIsInstance(self.adewq, Review)
 
-    def test_set_name(self):
+    def test_with_attr_asm(self):
         """
-        Test for set name
+        Test checking for name
         """
-        self.review.text = "Very good"
-        self.assertEqual(self.review.text, "Very good")
+        self.adewq.text = "sssqqwe"
+        self.assertEqual(self.adewq.text, "sssqqwe")
 
-    def test_has_attr(self):
+    def test_with_somtaahing(self):
         """
-        Test for attrbuite
+        Test for validations
         """
-        self.assertTrue(hasattr(self.review, "text"))
-        self.assertTrue(hasattr(self.review, "id"))
-        self.assertTrue(hasattr(self.review, "created_at"))
-        self.assertTrue(hasattr(self.review, "updated_at"))
-        self.assertTrue(hasattr(self.review, "place_id"))
-        self.assertTrue(hasattr(self.review, "user_id"))
+        self.assertTrue(hasattr(self.adewq, "text"))
+        self.assertTrue(hasattr(self.adewq, "id"))
+        self.assertTrue(hasattr(self.adewq, "created_at"))
+        self.assertTrue(hasattr(self.adewq, "updated_at"))
+        self.assertTrue(hasattr(self.adewq, "place_id"))
+        self.assertTrue(hasattr(self.adewq, "user_id"))
 
     def test_for_id(self):
         """
-        Test for id
+        Test validte uuid
         """
-        self.assertIsInstance(uuid.UUID(self.review.id), uuid.UUID)
+        self.assertIsInstance(uuid.UUID(self.adewq.id), uuid.UUID)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Test cases for base class
+Test casses for state
 """
 import unittest
 import uuid
@@ -10,48 +10,47 @@ from models.state import State
 
 class TestState(unittest.TestCase):
     """
-    Test cases for base class
+    Test for evry cas
     """
     def setUp(self):
         """
-        This method is called before each
-        test method in the test class
+        This start at first if every test
         """
-        self.state = State()
+        self.wlya = State()
 
-    def test_create_instance_of_state(self):
+    def test_creating_one(self):
         """
-        Test create instance of state
+        Test first creating
         """
-        self.assertIsInstance(self.state, BaseModel)
+        self.assertIsInstance(self.wlya, BaseModel)
 
-    def test_create(self):
+    def test_creating_again(self):
         """
-        Test of create function
+        Test for creating too
         """
-        self.assertIsInstance(self.state, State)
+        self.assertIsInstance(self.wlya, State)
 
-    def test_set_name(self):
+    def test_edit_asm(self):
         """
-        Test fo set name
+        Test editing the attr
         """
-        self.state.name = "EGY"
-        self.assertEqual(self.state.name, "EGY")
+        self.wlya.name = "KSA"
+        self.assertEqual(self.wlya.name, "KSA")
 
-    def test_has_attr(self):
+    def test_with_some(self):
         """
-        Test for attrbuite
+        Test checkin for any wrong
         """
-        self.assertTrue(hasattr(self.state, "name"))
-        self.assertTrue(hasattr(self.state, "id"))
-        self.assertTrue(hasattr(self.state, "created_at"))
-        self.assertTrue(hasattr(self.state, "updated_at"))
+        self.assertTrue(hasattr(self.wlya, "name"))
+        self.assertTrue(hasattr(self.wlya, "id"))
+        self.assertTrue(hasattr(self.wlya, "created_at"))
+        self.assertTrue(hasattr(self.wlya, "updated_at"))
 
     def test_for_id(self):
         """
-        Test for id
+        Test valide uuid with id
         """
-        self.assertIsInstance(uuid.UUID(self.state.id), uuid.UUID)
+        self.assertIsInstance(uuid.UUID(self.wlya.id), uuid.UUID)
 
 
 if __name__ == "__main__":

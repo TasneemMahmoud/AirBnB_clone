@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Test cases for base class
+Test the user casses class
 """
 import unittest
 import uuid
@@ -10,51 +10,50 @@ from models.user import User
 
 class TestUser(unittest.TestCase):
     """
-    Class to test user class
+    Testing casse class
     """
     def setUp(self):
         """
-        This method is called before each
-        test method in the test class
+        checking for user casses test
         """
-        self.user = User()
+        self.pers = User()
 
-    def test_create_instance_of_user(self):
+    def test_creating_first(self):
         """
-        Test create function of user
+        Test creating and method test
         """
-        self.assertIsInstance(self.user, BaseModel)
+        self.assertIsInstance(self.pers, BaseModel)
 
-    def test_create(self):
+    def test_creating_too(self):
         """
-        Test create
+        Creating again to
         """
-        self.assertIsInstance(self.user, User)
+        self.assertIsInstance(self.pers, User)
 
-    def test_set_name(self):
+    def test_checking_the(self):
         """
-        Test set funtion for set name
+        Checking for all things
         """
-        self.user.name = "EGY"
-        self.assertEqual(self.user.name, "EGY")
+        self.pers.name = "Mikesl"
+        self.assertEqual(self.pers.name, "Mikesl")
 
-    def test_has_attr(self):
+    def test_hmaas_asr(self):
         """
-        Test for attrbuite
+        Test casses for all it hase
         """
-        self.assertTrue(hasattr(self.user, "id"))
-        self.assertTrue(hasattr(self.user, "created_at"))
-        self.assertTrue(hasattr(self.user, "updated_at"))
-        self.assertTrue(hasattr(self.user, "email"))
-        self.assertTrue(hasattr(self.user, "password"))
-        self.assertTrue(hasattr(self.user, "first_name"))
-        self.assertTrue(hasattr(self.user, "last_name"))
+        self.assertTrue(hasattr(self.pers, "id"))
+        self.assertTrue(hasattr(self.pers, "created_at"))
+        self.assertTrue(hasattr(self.pers, "updated_at"))
+        self.assertTrue(hasattr(self.pers, "email"))
+        self.assertTrue(hasattr(self.pers, "password"))
+        self.assertTrue(hasattr(self.pers, "first_name"))
+        self.assertTrue(hasattr(self.pers, "last_name"))
 
-    def test_for_id(self):
+    def test_uuid_to_id(self):
         """
-        Test for id
+        Checking validation for uuid with id
         """
-        self.assertIsInstance(uuid.UUID(self.user.id), uuid.UUID)
+        self.assertIsInstance(uuid.UUID(self.pers.id), uuid.UUID)
 
 
 if __name__ == "__main__":

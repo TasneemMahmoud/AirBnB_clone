@@ -12,60 +12,60 @@ class TestBaseModel(unittest.TestCase):
     Class to test base class
     """
 
-    def test_initialization(self):
+    def test_rshil(self):
         """
-        Test if a BaseModel instance is initialized correctly
+        Test the starting
         """
-        my_model = BaseModel()
-        self.assertIsNotNone(my_model.id)
-        self.assertIsNotNone(my_model.created_at)
-        self.assertIsNotNone(my_model.updated_at)
+        hgti = BaseModel()
+        self.assertIsNotNone(hgti.id)
+        self.assertIsNotNone(hgti.created_at)
+        self.assertIsNotNone(hgti.updated_at)
 
     def test_save(self):
         """
-        Test the save method if it updates the updated_at correctly
+        Test saving
         """
-        my_model = BaseModel()
-        my_model.save()
-        self.assertNotEqual(my_model.created_at, my_model.updated_at)
+        hgti = BaseModel()
+        hgti.save()
+        self.assertNotEqual(hgti.created_at, hgti.updated_at)
 
-    def test_to_dict(self):
+    def test_funtion(self):
         """
-        Test the to_dict method if it returns a dictionary correctly
+        Test the dictionary case
         """
-        my_model = BaseModel()
-        my_model_dict = my_model.to_dict()
+        hgti = BaseModel()
+        hgti_dict = hgti.to_dict()
 
-        self.assertIsInstance(my_model_dict, dict)
-        created_at_iso = my_model.created_at.isoformat()
-        updated_at_iso = my_model.updated_at.isoformat()
+        self.assertIsInstance(hgti_dict, dict)
+        created_at_iso = hgti.created_at.isoformat()
+        updated_at_iso = hgti.updated_at.isoformat()
 
-        self.assertEqual(my_model_dict["__class__"], "BaseModel")
-        self.assertEqual(my_model_dict["id"], my_model.id)
-        self.assertEqual(my_model_dict["created_at"], created_at_iso)
-        self.assertEqual(my_model_dict["updated_at"], updated_at_iso)
+        self.assertEqual(hgti_dict["__class__"], "BaseModel")
+        self.assertEqual(hgti_dict["id"], hgti.id)
+        self.assertEqual(hgti_dict["created_at"], created_at_iso)
+        self.assertEqual(hgti_dict["updated_at"], updated_at_iso)
 
-    def test_str(self):
+    def test_the_string(self):
         """
-        Test the __str__ method if it returns a string correctly
+        Test the an attr for string
         """
-        my_model = BaseModel()
+        hgti = BaseModel()
 
-        self.assertTrue(str(my_model).startswith('[BaseModel]'))
-        self.assertIn(my_model.id, str(my_model))
-        self.assertIn(str(my_model.__dict__), str(my_model))
+        self.assertTrue(str(hgti).startswith('[BaseModel]'))
+        self.assertIn(hgti.id, str(hgti))
+        self.assertIn(str(hgti.__dict__), str(hgti))
 
     def test_kwargs(self):
         """
-        Test the initialization with kwargs
+        Test the starting
         """
-        format_date = "2019-07-01T00:00:00.000000"
-        iso_format = datetime.fromisoformat(format_date)
-        my_model = BaseModel(created_at=format_date, updated_at=format_date)
-        self.assertEqual(my_model.created_at, iso_format)
-        self.assertEqual(my_model.updated_at, iso_format)
-        self.assertNotEqual(my_model.created_at, datetime.utcnow())
-        self.assertNotEqual(my_model.updated_at, datetime.utcnow())
+        alwol = "2019-07-01T00:00:00.000000"
+        iso_format = datetime.fromisoformat(alwol)
+        hgti = BaseModel(created_at=alwol, updated_at=alwol)
+        self.assertEqual(hgti.created_at, iso_format)
+        self.assertEqual(hgti.updated_at, iso_format)
+        self.assertNotEqual(hgti.created_at, datetime.utcnow())
+        self.assertNotEqual(hgti.updated_at, datetime.utcnow())
 
 
 if __name__ == "__main__":

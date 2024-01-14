@@ -16,42 +16,42 @@ class TestCity(unittest.TestCase):
         """
         SetUp finction
         """
-        self.city = City()
+        self.the_obj = City()
 
-    def test_create_instance_of_city(self):
+    def test_creating(self):
         """
-        Tests create instance of city
+        Tests creating
         """
-        self.assertIsInstance(self.city, BaseModel)
+        self.assertIsInstance(self.the_obj, BaseModel)
 
-    def test_create(self):
+    def test_create_again(self):
         """
-        tests create function
+        tests creating too
         """
-        self.assertIsInstance(self.city, City)
+        self.assertIsInstance(self.the_obj, City)
 
     def test_set_name(self):
         """
         Tests set name
         """
-        self.city.name = "Mokattam"
-        self.assertEqual(self.city.name, "Mokattam")
+        self.the_obj.name = "USA"
+        self.assertEqual(self.the_obj.name, "USA")
 
     def test_has_attr(self):
         """
-        Tests has attrbute
+        Tests with attrs checking
         """
-        self.assertTrue(hasattr(self.city, "name"))
-        self.assertTrue(hasattr(self.city, "id"))
-        self.assertTrue(hasattr(self.city, "created_at"))
-        self.assertTrue(hasattr(self.city, "updated_at"))
-        self.assertTrue(hasattr(self.city, "state_id"))
+        self.assertTrue(hasattr(self.the_obj, "name"))
+        self.assertTrue(hasattr(self.the_obj, "id"))
+        self.assertTrue(hasattr(self.the_obj, "created_at"))
+        self.assertTrue(hasattr(self.the_obj, "updated_at"))
+        self.assertTrue(hasattr(self.the_obj, "state_id"))
 
     def test_for_id(self):
         """
-        Test for id
+        Test the uuid class
         """
-        self.assertIsInstance(uuid.UUID(self.city.id), uuid.UUID)
+        self.assertIsInstance(uuid.UUID(self.the_obj.id), uuid.UUID)
 
 
 if __name__ == "__main__":

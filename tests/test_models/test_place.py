@@ -10,58 +10,57 @@ from models.place import Place
 
 class TestPlace(unittest.TestCase):
     """
-    Class to test place class
+    Class testing place class
     """
     def setUp(self):
         """
-        This method is called before each
-        test method in the test class
+        This checksh for issues
         """
-        self.place = Place()
+        self.n_obq = Place()
 
-    def test_create_instance_of_place(self):
+    def test_creating(self):
         """
-        Tests create instance of place
+        Tests creating first
         """
-        self.assertIsInstance(self.place, BaseModel)
+        self.assertIsInstance(self.n_obq, BaseModel)
 
-    def test_create(self):
+    def test_creating_again(self):
         """
-        test for create
+        test creating too
         """
-        self.assertIsInstance(self.place, Place)
+        self.assertIsInstance(self.n_obq, Place)
 
-    def test_set_name(self):
+    def test_ame_attr(self):
         """
-        Test for set name
+        Test the name attr
         """
-        self.place.name = "room"
-        self.assertEqual(self.place.name, "room")
+        self.n_obq.name = "anyss"
+        self.assertEqual(self.n_obq.name, "anyss")
 
-    def test_has_attr(self):
+    def test_with_asd(self):
         """
-        Test for attrbuite
+        Test checking the properties
         """
-        self.assertTrue(hasattr(self.place, "name"))
-        self.assertTrue(hasattr(self.place, "id"))
-        self.assertTrue(hasattr(self.place, "created_at"))
-        self.assertTrue(hasattr(self.place, "updated_at"))
-        self.assertTrue(hasattr(self.place, "user_id"))
-        self.assertTrue(hasattr(self.place, "city_id"))
-        self.assertTrue(hasattr(self.place, "description"))
-        self.assertTrue(hasattr(self.place, "number_bathrooms"))
-        self.assertTrue(hasattr(self.place, "price_by_night"))
-        self.assertTrue(hasattr(self.place, "number_rooms"))
-        self.assertTrue(hasattr(self.place, "longitude"))
-        self.assertTrue(hasattr(self.place, "max_guest"))
-        self.assertTrue(hasattr(self.place, "amenity_ids"))
-        self.assertTrue(hasattr(self.place, "latitude"))
+        self.assertTrue(hasattr(self.n_obq, "name"))
+        self.assertTrue(hasattr(self.n_obq, "id"))
+        self.assertTrue(hasattr(self.n_obq, "created_at"))
+        self.assertTrue(hasattr(self.n_obq, "updated_at"))
+        self.assertTrue(hasattr(self.n_obq, "user_id"))
+        self.assertTrue(hasattr(self.n_obq, "city_id"))
+        self.assertTrue(hasattr(self.n_obq, "description"))
+        self.assertTrue(hasattr(self.n_obq, "number_bathrooms"))
+        self.assertTrue(hasattr(self.n_obq, "price_by_night"))
+        self.assertTrue(hasattr(self.n_obq, "number_rooms"))
+        self.assertTrue(hasattr(self.n_obq, "longitude"))
+        self.assertTrue(hasattr(self.n_obq, "max_guest"))
+        self.assertTrue(hasattr(self.n_obq, "amenity_ids"))
+        self.assertTrue(hasattr(self.n_obq, "latitude"))
 
     def test_for_id(self):
         """
-        Test for id
+        Test checking uuid
         """
-        self.assertIsInstance(uuid.UUID(self.place.id), uuid.UUID)
+        self.assertIsInstance(uuid.UUID(self.n_obq.id), uuid.UUID)
 
 
 if __name__ == "__main__":
