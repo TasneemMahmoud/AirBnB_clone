@@ -117,7 +117,7 @@ article h2{
 .bathrooms_icon{
     height: inherit;
     width: inherit;
-    background: url("../images/icon_bath.png");
+    background: url("../images/bath_img.png");
     background-repeat: no-repeat;
     margin-left: 35px;
 }
